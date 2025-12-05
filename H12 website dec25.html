@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hostel 12 – IIT Bombay</title>
+  <meta name="description" content="Official website of Hostel 12, IIT Bombay – announcements, events, council, amenities, and contact." />
+  <link rel="icon" href="data:,"> <!-- TODO: Replace with favicon.ico -->
+  <style>
+    :root{
+      --bg:#0b1220;          /* Deep navy */
+      --card:#11192b;        /* Card background */
+      --muted:#8892a6;       /* Muted text */
+      --text:#eaf0ff;        /* Primary text */
+      --brand:#4da3ff;       /* Accent blue */
+      --brand-2:#5ee0c4;     /* Accent teal */
+      --warn:#ffcc66;        /* Announcements */
+      --danger:#ff7a7a;      /* Alerts */
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg),#070c18);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:focus,button:focus,input:focus{outline:2px solid var(--brand-2);outline-offset:2px}
+    img{max-width:100%;display:block;border-radius:14px}
+    .container{width:min(1200px,92%);margin-inline:auto}
+    .grid{display:grid;gap:24px}
+    header{position:sticky;top:0;z-index:50;background:rgba(7,12,24,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(45deg,var(--brand),var(--brand-2));box-shadow:var(--shadow)}
+    .brand h1{font-size:18px;margin:0}
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:10px;color:var(--text)}
+    .menu a:hover{background:rgba(255,255,255,.06)}
+    .cta{padding:10px 14px;border-radius:12px;background:linear-gradient(45deg,var(--brand-2),var(--brand));color:#021016;border:none;cursor:pointer;font-weight:600}
+    .hamburger{display:none;background:none;border:none;color:var(--text);font-size:26px}
+
+    /* Hero */
+    .hero{padding:40px 0 24px}
+    .hero-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+    .hero .banner{min-height:320px;border-radius:var(--radius);background:#0d1526;display:grid;place-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .placeholder{
+      width:100%;height:100%;
+      background:repeating-linear-gradient(45deg, #0f1a30 0 16px, #0b1427 16px 32px);
+      display:grid;place-items:center;color:#b8c2d9;font-weight:600;letter-spacing:.08em
+    }
+    .hero .info{display:grid;gap:18px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(77,163,255,.15);color:#cfe5ff;font-weight:600;width:max-content}
+    h2{font-size:34px;line-height:1.25;margin:0}
+    p.lead{color:#c7d3ec;margin:0}
+
+    /* Section */
+    section{padding:28px 0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .section-head h3{margin:0;font-size:22px}
+    .muted{color:var(--muted)}
+
+    /* Cards */
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);padding:16px;border-radius:16px;box-shadow:var(--shadow)}
+
+    /* Announcements */
+    .ann-grid{grid-template-columns:repeat(3,1fr)}
+    .ann{border-left:4px solid var(--warn)}
+    .alert{border-left:4px solid var(--danger)}
+
+    /* Events */
+    .events{grid-template-columns:2fr 1fr}
+    .event-list .item{display:flex;gap:14px;padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.06);align-items:flex-start}
+    .event-date{min-width:64px;text-align:center;background:#0b1427;border-radius:12px;padding:8px 6px}
+    .event-date .d{font-size:20px;font-weight:800}
+
+    /* Council */
+    .council{grid-template-columns:repeat(4,1fr)}
+    .person{display:grid;gap:10px}
+    .tag{display:inline-flex;padding:4px 8px;border-radius:999px;background:rgba(94,224,196,.16);color:#bff3e7;font-size:12px}
+
+    /* Amenities */
+    .amen{grid-template-columns:repeat(3,1fr)}
+    .amen .item{display:grid;gap:10px}
+
+    /* Gallery */
+    .gallery{grid-template-columns:repeat(4,1fr)}
+    .gallery .ph{height:150px}
+
+    /* Downloads */
+    .downloads .row{display:flex;flex-wrap:wrap;gap:12px}
+    .chip{border:1px dashed rgba(255,255,255,.25);padding:10px 12px;border-radius:10px}
+
+    /* Footer */
+    footer{padding:40px 0 60px;border-top:1px solid rgba(255,255,255,.06);margin-top:20px}
+
+    /* Responsive */
+    @media (max-width: 1000px){
+      .hero-wrap{grid-template-columns:1fr}
+      .ann-grid{grid-template-columns:1fr 1fr}
+      .events{grid-template-columns:1fr}
+      .council{grid-template-columns:repeat(3,1fr)}
+      .gallery{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 720px){
+      .menu{display:none}
+      .hamburger{display:block}
+      .ann-grid{grid-template-columns:1fr}
+      .council{grid-template-columns:repeat(2,1fr)}
+      .amen{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <a class="visually-hidden" href="#main" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+  <header aria-label="Top navigation">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+		
+		<a href="index.html">
+							<img src="assets/images/hostel_logo.png" alt="Mobirise" title="" style="height: 3rem;">
+                        </a>
+		
+		</div>
+        <h1>Hostel 12 · IIT Bombay</h1>
+      </div>
+      <nav class="menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#announcements">Notices</a>
+        <a href="#events">Events</a>
+        <a href="#council">Council</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#downloads">Downloads</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="#report">Report Issue</a>
+      </nav>
+      <button class="hamburger" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- HERO: Replace placeholder with hero/banner image of Hostel 12 entrance or courtyard -->
+    <section class="hero" id="home">
+      <div class="hero-wrap">
+        <div class="banner">
+          
+          <img src="assets/images/h12.jpg" alt="Hostel 12, IIT Bombay – entrance view" />
+        </div>
+        <div class="info">
+          <span class="pill">Welcome to Hostel 12</span>
+          <h2>Clean, responsive, accessible — a modern home for our community.</h2>
+          <p class="lead">Find announcements, events, council contacts, amenities, and quick links to report issues. </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="cta" href="#announcements">View Notices</a>
+            <a class="cta" style="background:linear-gradient(45deg,var(--brand),var(--brand-2))" href="#events">Upcoming Events</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-head">
+        <h3>About Hostel 12</h3>
+        <span class="muted">Est. 2003 · Powai, Mumbai</span>
+      </div>
+      <div class="grid" style="grid-template-columns:1.2fr .8fr">
+        <div class="card">
+          <p>Hostel 12 is a vibrant residential community at IIT Bombay. </p>
+          <div class="mbr-section-text">
+                            <p class="mbr-text mb-5 pt-3 mbr-light mbr-fonts-style display-5"
+                                style="line-height: 1.6;text-align: justify;">
+                                "Crown of the Campus," standing true to its name, is the largest post-graduate hostel at
+                                IIT Bombay, with its four wings spread across 10,000+ square feet of area. Nestled
+                                between the Powai and the Vihar lakes, the lush green premise of the hostel provides a
+                                serene and scenic environment for the residents. Equipped with modern amenities and
+                                blessed with natural beauty, the hostel continues to be a partner in the prosperity of
+                                all its inmates. This website forms an interactive platform for the hostellers to share
+                                updates, capture memories, and register issues with the council of Hostel 12.<br><br>You
+                                can also write to us at <em><a href="mailto:gsech12@iitb.ac.in"
+                                        class="text-black">gsech12@iitb.ac.in</a><br></em><br>
+                            </p>
+                        </div>
+		  
+		  
+		  <ul>
+            <li>Mobile‑first, accessible design</li>
+            <li>Clear navigation and sections</li>
+            <li>Lightweight, no external dependencies</li>
+          </ul>
+        </div>
+        <div class="card">
+		  <img src="assets/images/image-2a-u8922-482x659.png" alt="Hostel 12" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ANNOUNCEMENTS / NOTICES -->
+    <section id="announcements" aria-labelledby="ann-head">
+      <div class="section-head">
+        <h3 id="ann-head">Notices & Announcements</h3>
+        <a href="#" class="muted">View all</a>
+      </div>
+      <div class="grid ann-grid">
+        <article class="card ann" aria-label="Notice item">
+          <h4 style="margin:.2rem 0">Water Tank Cleaning – Wing A</h4>
+          <p class="muted">6 Sept, 10:00–20:00 · Water supply intermittent. Please store water in advance. strong></p>
+        </article>
+        <article class="card ann" aria-label="Notice item">
+          <h4 style="margin:.2rem 0">Mess Menu Feedback Drive</h4>
+          <p class="muted">Submit your preferences by Friday 5pm. ></p>
+        </article>
+        <article class="card alert" aria-label="Alert item">
+          <h4 style="margin:.2rem 0">Noise Advisory – Exam Week</h4>
+          <p class="muted">Please avoid drilling beyond 4pm. Report violations. ng></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events" aria-labelledby="ev-head">
+      <div class="section-head">
+        <h3 id="ev-head">Upcoming Events</h3>
+        <a href="#" class="muted">Calendar</a>
+      </div>
+      <div class="grid events">
+        <div class="card event-list">
+          <div class="item">
+            <div class="event-date"><div class="d">09</div><div>OCT</div></div>
+            <div>
+              <h4 style="margin:.2rem 0">Council Meeting</h4>
+              <p class="muted">Thursday · 6:30 PM · Council Room. Agenda: T‑shirt design, website, tea party, ID cards, follow‑ups. g></p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="event-date"><div class="d">25</div><div>OCT</div></div>
+            <div>
+              <h4 style="margin:.2rem 0">Sports Night</h4>
+              <p class="muted">Volleyball & Badminton matches on the main court. rong></p>
+            </div>
+          </div>
+        </div>
+        <aside class="card">
+          <h4 style="margin-top:0">Quick Links</h4>
+          <ul class="muted">
+            <li><a href="#report">Report Maintenance Issue</a></li>
+            <li><a href="#downloads">Hostel Constitution (PDF)</a></li>
+            <li><a href="#contact">Warden & Hall Manager Contacts</a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+
+
+<!-- HOSTEL ADMINISTRATION -->
+    <section id="hostel_admin" aria-labelledby="hostel_admin-head">
+      <div class="section-head">
+        <h3 id="hostel_admin-head">Hostel Administration</h3>
+      </div>
+      <div class="grid council">
+	  
+	    	  
+        <!-- PERSON CARD TEMPLATE -->
+        <article class="card person" aria-label="Warden card">
+		<div class="item-image">
+                        <img src="assets/images/Manas_Warden.png" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Prof. Manas Behera</strong>
+              <div class="muted">Warden</div>
+            </div>
+            
+          </div>
+		  
+          <a class="muted" href="mailto:h12warden@iitb.ac.in">h12warden@iitb.ac.in</a>
+        </article>
+
+		<article class="card person" aria-label="Associate Warden card">
+		<div class="item-image">
+                        <img src="assets/images/1000166766.jpg" alt="image" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Prof. Chandra Mouli Volla</strong>
+              <div class="muted">Associate Warden</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:h12assocward@iitb.ac.in">h12assocward@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2023-24/Jagadish_Upadhay_Hall_mgr.jpeg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Jagdish Upadhay</strong>
+              <div class="muted">Hall Manager</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:h12hallmgr@iitb.ac.in">h12hallmgr@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2023-24/Vinod_off_staff.jpeg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Vinod Mirgal</strong>
+              <div class="muted">Office Staff</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:vinodmirgal@iitb.ac.in">vinodmirgal@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2023-24/Guru_office_staff.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Gurunath Pujare</strong>
+              <div class="muted">Office Staff</div>
+            </div>
+             
+          </div>
+         
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2023-24/amba.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Ambanath</strong>
+              <div class="muted">Office Staff</div>
+            </div>
+             
+          </div>
+          
+        </article>
+		
+		
+		
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- COUNCIL -->
+    <section id="council" aria-labelledby="council-head">
+      <div class="section-head">
+        <h3 id="council-head">Council</h3>
+        <span class="muted">2025–26</span>
+      </div>
+      <div class="grid council">
+	  
+	    	  
+        <!-- PERSON CARD TEMPLATE -->
+        <article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/GeneralSecy/shyam.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Ikshvaku Shyam</strong>
+              <div class="muted">General Secretary</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:gsech12@iitb.ac.in">gsech12@iitb.ac.in</a>
+        </article>
+
+       
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/MessCo/syed.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Syed Baqer Mehdi</strong>
+              <div class="muted">Mess Councillor</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:messcoh12@iitb.ac.in">messcoh12@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/CultCo/ajay.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Ajay Sharma</strong>
+              <div class="muted">Cultural Councillor</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:cultcoh12@iitb.ac.in">cultcoh12@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/TechCo/atul.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Atul Kaushik</strong>
+              <div class="muted">Technical Councillor</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:techcoh12@iitb.ac.in">techcoh12@iitb.ac.in</a>
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/EnvCo/zaid.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Mohd Zaid</strong>
+              <div class="muted">Environment Councillor</div>
+            </div>
+             
+          </div>
+          
+        </article>
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_Secretaries/MaintCo/ram.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Ram</strong>
+              <div class="muted">Maintenance Councillor</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:maintcoh12@iitb.ac.in">maintcoh12@iitb.ac.in</a>
+        </article>
+		
+		<article class="card person" aria-label="General Secretary card">
+		<div class="item-image">
+                        <img src="assets/images/2024-25/H12_councilors/SportsCo/surya.jpg" alt="" title="">
+                    </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>Suryanarayan Nayak</strong>
+              <div class="muted">Sports Councillor</div>
+            </div>
+             
+          </div>
+          <a class="muted" href="mailto:sportscoh12@iitb.ac.in">sportscoh12@iitb.ac.in</a>
+        </article>
+		
+	
+		
+		
+		
+      </div>
+    </section>
+
+    <!-- AMENITIES -->
+    <section id="amenities" aria-labelledby="amen-head">
+      <div class="section-head">
+        <h3 id="amen-head">Amenities</h3>
+        <span class="muted">Common facilities and timings</span>
+      </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+      <div class="grid amen">
+        <div class="card item">
+          <div class="placeholder" style="height:140px">IMAGE 800×500</div>
+          <strong>Mess & Dining</strong>
+          <p class="muted">Breakfast 7–9 · Lunch 12–2 · Dinner 7–9:30. </p>
+        </div>
+        <div class="card item">
+          <div class="placeholder" style="height:140px">IMAGE 800×500</div>
+          <strong>Sports Area</strong>
+          <p class="muted">Volleyball, Badminton, TT room. Booking via council. ></p>
+        </div>
+        <div class="card item">
+          <div class="placeholder" style="height:140px">IMAGE 800×500</div>
+          <strong>Study & Computer Room</strong>
+          <p class="muted">Open 24×7 with Wi‑Fi. ></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" aria-labelledby="gal-head">
+      <div class="section-head">
+        <h3 id="gal-head">Gallery</h3>
+        <span class="muted">Moments from Hostel 12</span>
+      </div>
+      <div class="grid gallery">
+	  <div class="mbr-figure m-auto" style="width: 50%;">
+                        <img src="assets/images/2024-25/H12_Secretaries/img12.jpg" alt="Mobirise" title="">
+                    </div>
+					
+	  <div class="mbr-figure m-auto" style="width: 50%;">
+                        <img src="assets/images/2024-25/H12_Secretaries/img15.jpg" alt="Mobirise" title="">
+                    </div>
+					
+	  
+	  
+	  
+       
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="downloads" aria-labelledby="dl-head">
+      <div class="section-head">
+        <h3 id="dl-head">Downloads</h3>
+        <span class="muted">Important documents & forms</span>
+      </div>
+      <div class="card">
+        <div class="row">
+          <a class="chip" href="#">Hostel Constitution.pdf</a>
+          <a class="chip" href="#">Mess Menu.pdf</a>
+          <a class="chip" href="#">Room Allotment Form.pdf</a>
+          <a class="chip" href="#">Maintenance SOP.pdf</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / REPORT -->
+    <section id="contact" aria-labelledby="ct-head">
+      <div class="section-head">
+        <h3 id="ct-head">Contact & Reporting</h3>
+        <span class="muted">Reach the right team quickly</span>
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 1fr">
+        <div class="card">
+          <h4>Key Contacts</h4>
+          <ul class="muted">
+            <li><strong>Warden:</strong> Prof. Manas Behera · <a href="mailto:warden.h12@iitb.ac.in">warden.h12@iitb.ac.in</a></li>
+            <li><strong>Associate Warden:</strong> Prof. M. J.N.V. Prasad · <a href="mailto:awarden.h12@iitb.ac.in">awarden.h12@iitb.ac.in</a></li>
+            <li><strong>Hall Manager:</strong> Mr. Jagdish Upadhyay · <a href="mailto:hallmanager.h12@iitb.ac.in">hallmanager.h12@iitb.ac.in</a></li>
+            <li><strong>General Secretary:</strong> Ikshvaku Shyam · <a href="mailto:gsec.h12@iitb.ac.in">gsec.h12@iitb.ac.in</a></li>
+          </ul>
+        </div>
+        <div id="report" class="card">
+          <h4>Report an Issue</h4>
+          <p class="muted">Link forms to institute portals </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="cta" href="#">Maintenance</a>
+            <a class="cta" href="#">Internet</a>
+            <a class="cta" href="#">Mess Feedback</a>
+            <a class="cta" href="#">Other</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container" aria-label="Footer">
+    <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <strong>Hostel 12 · IIT Bombay</strong>
+        <p class="muted">Powai, Mumbai 400076</p>
+      </div>
+      <div>
+        <strong>Quick Links</strong>
+        <ul class="muted">
+          <li><a href="#announcements">Notices</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#downloads">Downloads</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Social</strong>
+        <ul class="muted">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:24px">© <span id="year"></span> Hostel 12, IIT Bombay. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const nav = document.querySelector('.menu');
+      const open = getComputedStyle(nav).display === 'none';
+      nav.style.display = open ? 'flex' : 'none';
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!--
+    IMPLEMENTATION NOTES
+    1) Replace all .placeholder blocks with real <img> tags. Suggested sizes are written on each block.
+    2) Host on https://gymkhana.iitb.ac.in/~hostel12/ as index.html. Add a /images folder for assets.
+    3) For notices/events, you can generate this HTML from a simple CSV/JSON later.
+    4) Colors and radii are CSS variables at the top; adjust to match IITB branding.
+    5) No external libraries used; pure HTML/CSS/JS keeps it fast and easy to maintain.
+  -->
+</body>
+</html>
